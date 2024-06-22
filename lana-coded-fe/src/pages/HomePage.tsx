@@ -1,33 +1,79 @@
-import {Button, Dialog, DialogContent, DialogTitle, Stack, TextField, useTheme} from "@mui/material";
-import {useState} from "react";
+import {
+  Avatar, Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  IconButton,
+  Stack, Tooltip,
+  Typography,
+  useTheme
+} from "@mui/material";
+import {blogs} from "../mockData/Blogs.ts";
+import {Favorite, MoreVert, Share} from "@mui/icons-material";
+import demoUserPic from "./../assets/demo-user-pic.jpg"
+import demoBlogPic from "./../assets/demo-blog-pic.jpg"
 
 function HomePage() {
-  const [name, setName] = useState("name");
   const theme = useTheme()
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   return (
-    <Stack justifyContent={"center"} alignItems={"center"} height={"720px"}>
-      <Button variant={"contained"} onClick={() => setIsDialogOpen(true)}>
-        apasa mi pula cu nasul rawr
-      </Button>
+    <Stack alignItems={"center"}>
+      <Card
+        elevation={4}
+        sx={{ width: 700 }}>
+        <Stack alignItems={'center'} spacing={2} py={2}>
+          {
+            blogs.map((blog) => (
+              <Card sx={{ maxWidth: 345 }}>
+                <CardHeader
+                  avatar={
+                    <Tooltip placement={'top'} title={blog.author}>
+                      <Avatar src={demoUserPic} />
+                    </Tooltip>
+                  }
+                  action={
+                    <IconButton>
+                      <MoreVert/>
+                    </IconButton>
+                  }
+                  title={
+                    <Typography fontSize={18} textTransform={'capitalize'}>
+                      {blog.title}
+                    </Typography>
+                  }
+                  subheader="September 14, 2016"
+                />
+                <CardMedia
+                  component="img"
+                  height="194"
+                  src={demoBlogPic}
+                />
+                <CardContent>
+                  <Typography variant="body2" color="text.secondary">
+                    {blog.description}
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                  <Stack direction={'row'} flexGrow={1}>
+                    <IconButton aria-label="add to favorites">
+                      <Favorite />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <Share />
+                    </IconButton>
+                  </Stack>
 
-      <TextField
-        variant={"filled"}
-        label={"Name"}
-        placeholder={"Please enter name..."}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-
-      <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)} sx={{backgroundColor:theme.palette.background.default}}>
-        <DialogTitle>
-          Sugi pula
-        </DialogTitle>
-        <DialogContent>
-          Esti un muist si un poponar
-        </DialogContent>
-      </Dialog>
+                  <Button variant={'contained'}>
+                    See More
+                  </Button>
+                </CardActions>
+              </Card>
+            ))
+          }
+        </Stack>
+      </Card>
     </Stack>
   );
 }

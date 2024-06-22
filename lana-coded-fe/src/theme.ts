@@ -1,6 +1,7 @@
 
 export const themeSettings = {
   palette: {
+    mode: 'dark',
     primary: {
       main: '#430101',
     },
