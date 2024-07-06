@@ -26,6 +26,7 @@ public class Blog {
         this.description = description;
         this.author = author;
         this.lastTimeUpdated = new Date();
+        this.creationDate = new Date();
     }
 
     public Blog(Long id, String title, String description, String author) {
@@ -34,5 +35,6 @@ public class Blog {
         this.description = description;
         this.author = author;
         this.lastTimeUpdated = new Date();
+        this.creationDate = new Date();
     }
 }
